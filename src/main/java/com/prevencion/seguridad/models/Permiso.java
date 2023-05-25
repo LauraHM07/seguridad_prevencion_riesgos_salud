@@ -7,7 +7,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
@@ -22,7 +21,7 @@ public class Permiso {
     @Column(name = "name")
     private String nombre;
 
-    @ManyToMany(mappedBy = "permissions")
+   @Transient
     private List<Usuario> users;
 
     @Transient
