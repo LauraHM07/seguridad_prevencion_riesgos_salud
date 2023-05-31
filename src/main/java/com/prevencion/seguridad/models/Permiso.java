@@ -13,7 +13,7 @@ import javax.persistence.Transient;
 @Entity
 @Table(name = "permissions")
 public class Permiso {
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int codigo;
@@ -21,7 +21,7 @@ public class Permiso {
     @Column(name = "name")
     private String nombre;
 
-   @Transient
+    @Transient
     private List<Usuario> users;
 
     @Transient
