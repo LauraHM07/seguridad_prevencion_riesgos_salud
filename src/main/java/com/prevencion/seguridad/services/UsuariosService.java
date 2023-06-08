@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.prevencion.seguridad.models.Permiso;
 import com.prevencion.seguridad.models.Usuario;
 import com.prevencion.seguridad.repositories.UsuarioRepository;
 
@@ -14,12 +15,27 @@ public class UsuariosService {
     @Autowired
     private UsuarioRepository userRepository;
 
+    @Autowired
+    private PermisosService permisosService;
+
     public Usuario createUser(Usuario user) {
         return userRepository.save(user);
     }
 
     public Usuario updateUser(int id, Usuario user) {
-        user.setCodigo(id); 
+        List<Permiso> permisos = permisosService.getAllPermisos();
+        
+        for(Permiso permiso :  user.getPermissions()) {
+            
+            //Permiso per = permisosService.getPermiso(permiso.getCodigo());
+
+            int posicion = permisos.indexOf(permiso);
+            Permiso per = permisos.get(posicion);
+
+            permiso.setNombre(per.getNombre());
+        }
+
+        user.setCodigo(id);
         return userRepository.save(user);
     }
 
@@ -33,5 +49,9 @@ public class UsuariosService {
 
     public List<Usuario> getAllUsers() {
         return userRepository.findAll();
+    }
+
+    public Usuario findByNombre(String username) {
+        return userRepository.findByNombre(username);
     }
 }

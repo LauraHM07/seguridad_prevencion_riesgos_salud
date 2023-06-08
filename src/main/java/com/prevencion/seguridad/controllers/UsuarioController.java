@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.prevencion.seguridad.models.Usuario;
@@ -28,6 +29,11 @@ public class UsuarioController {
     @GetMapping("/usuarios/{codigo}")
     Usuario findUsuario(@PathVariable int codigo) {
         return usuarioService.getUser(codigo);
+    }
+
+    @GetMapping("/usuarios/usuario/{username}")
+    Usuario findUsuarioNombre(@PathVariable String username) {
+        return usuarioService.findByNombre(username);
     }
 
     @DeleteMapping("/usuarios/{codigo}")
