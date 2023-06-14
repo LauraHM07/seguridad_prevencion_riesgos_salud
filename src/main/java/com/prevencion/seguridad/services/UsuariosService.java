@@ -23,8 +23,11 @@ public class UsuariosService {
     }
 
     public Usuario updateUser(int id, Usuario user) {
-        List<Permiso> permisos = permisosService.getAllPermisos();
         
+        Usuario usuario = getUser(id);
+        
+        List<Permiso> permisos = permisosService.getAllPermisos();
+
         for(Permiso permiso :  user.getPermissions()) {
             
             //Permiso per = permisosService.getPermiso(permiso.getCodigo());
@@ -36,6 +39,7 @@ public class UsuariosService {
         }
 
         user.setCodigo(id);
+        user.setPassword(usuario.getPassword());
         return userRepository.save(user);
     }
 
